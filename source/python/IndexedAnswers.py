@@ -66,7 +66,7 @@ class IndexedAnswers(object):
         copyStore = Variable.CopyStore()
         answerCopy = [YP.makeCopy(value, copyStore) for value in answer]
         if copyStore.getNUniqueVariables() > 0:
-            raise "Elements of answer must be ground, but found " + `copyStore.getNUniqueVariables()` + " unbound variables"
+            raise "Elements of answer must be ground, but found " + copyStore.getNUniqueVariables() + " unbound variables"
 
         if prepend:
             self._allAnswers.insert(0, answerCopy)
@@ -135,7 +135,7 @@ class IndexedAnswers(object):
             # No index args, so we have to match from _allAnswers.
             answers = self._allAnswers
         else:
-            if not self._gotAnswersForSignature.has_key(signature):
+            if signature not in self._gotAnswersForSignature:
                 # We need to create the entry in _indexedAnswers.
                 for answer in self._allAnswers:
                     self.indexAnswerForSignature(answer, signature)
@@ -167,7 +167,7 @@ class IndexedAnswers(object):
                 nIterators += 1
                 # next() returns if YP.unify succeeds.
                 try:
-                    iterator.next()
+                    next(iterator)
                 except StopIteration:
                     gotMatch = False
                     break

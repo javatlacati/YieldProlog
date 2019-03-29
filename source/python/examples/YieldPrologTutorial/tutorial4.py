@@ -44,18 +44,18 @@ def main():
         [Atom.a("Bill"), Atom.a("Roger")])
 
     Brother = Variable()
-    print "Using dynamic assert:"
+    print("Using dynamic assert:")
     for l1 in YP.matchDynamic \
               (Atom.a("brother"), \
                [Atom.a("Hillary"), Brother]):
-        print "Hillary has brother", \
-            Brother.getValue()
+        print("Hillary has brother",
+            Brother.getValue())
 
     prologCode = \
         "uncle(Person, Uncle) :- \n" + \
         "  parent(Person, Parent), \n" + \
         "  brother(Parent, Uncle). \n"
-    print "# Compiled code:"
+    print("# Compiled code:")
     compileAndWrite(prologCode)
 
     prologCode = \
@@ -63,7 +63,7 @@ def main():
         "uncle(Person, Uncle) :- \n" + \
         "  parent(Person, Parent), \n" + \
         "  brother(Parent, Uncle). \n"
-    print "# Calling an imported function:"
+    print("# Calling an imported function:")
     compileAndWrite(prologCode)
 
     prologCode = \
@@ -73,7 +73,7 @@ def main():
         "uncle(Person, Uncle) :- \n" + \
         "  parent(Person, Parent), \n" + \
         "  brother(Parent, Uncle). \n"
-    print "# Calling a locally-defined function:"
+    print("# Calling a locally-defined function:")
     compileAndWrite(prologCode)
 
     prologCode = \
@@ -82,15 +82,15 @@ def main():
         "  Goal = parent(Person, Parent), \n" + \
         "  Goal, \n" + \
         "  brother(Parent, Uncle). \n"
-    print "# Calling a dynamic goal:"
+    print("# Calling a dynamic goal:")
     compileAndWrite(prologCode)
 
-    print "Calling compiled code having a dynamic goal:"
+    print("Calling compiled code having a dynamic goal:")
     Person = Variable()
     Uncle = Variable()
     for l1 in uncle(Person, Uncle):
-        print Person.getValue(), "has uncle", \
-              Uncle.getValue()
+        print(Person.getValue(), "has uncle",
+              Uncle.getValue())
 
 def compileAndWrite(prologCode):
     YP.tell(sys.stdout)

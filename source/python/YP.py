@@ -29,6 +29,7 @@
 import sys
 from datetime import datetime
 import math
+import functools
 
 class YP(object):
     # If value is a Variable, then return its getValue.  Otherwise, just
@@ -387,7 +388,7 @@ class YP(object):
     # Sort the array in place according to termLessThan.  This does not remove duplicates.
     @staticmethod
     def sortArray(array):
-        array.sort(YP.compareTerms)
+        array.sort(key=functools.cmp_to_key(YP.compareTerms))
 
     # Sort List according to termLessThan, remove duplicates and unify with Sorted.
     @staticmethod
@@ -416,7 +417,7 @@ class YP(object):
             nIterators += 1
             # next() returns if YP.unify succeeds.
             try:
-                iterator.next()
+                next(iterator)
             except StopIteration:
                 gotMatch = False
                 break
@@ -1625,7 +1626,7 @@ class YP(object):
     @staticmethod
     def isDynamicCurrentPredicate(name, arity):
         nameAndArity = YP.NameArity(name, arity)
-        return YP._predicatesStore.has_key(nameAndArity)
+        return nameAndArity in YP._predicatesStore
 
     @staticmethod
     def abolish(NameSlashArity):
@@ -1711,7 +1712,7 @@ class YP(object):
     # the initial defaults are loaded.
     @staticmethod
     def establishPrologFlags():
-        if YP._prologFlags.has_key("bounded"):
+        if "bounded" in YP._prologFlags:
             # Already established.
             return
 
@@ -1743,7 +1744,7 @@ class YP(object):
             if not isinstance(Key, Atom):
                 raise PrologException \
                     (Functor2("type_error", Atom.a("atom"), Key), "Arg 1 Key is not an atom")
-            if not YP._prologFlags.has_key(Key._name):
+            if Key._name not in YP._prologFlags:
                 raise PrologException \
                     (Functor2("domain_error", Atom.a("prolog_flag"), Key), \
                      "Arg 1 Key is not a recognized flag")
@@ -1769,7 +1770,7 @@ class YP(object):
                 (Functor2("type_error", Atom.a("atom"), Key), "Arg 1 Key is not an atom")
 
         keyName = Key._name
-        if not YP._prologFlags.has_key(keyName):
+        if keyName not in YP._prologFlags:
             raise PrologException \
                 (Functor2("domain_error", Atom.a("prolog_flag"), Key),
                 "Arg 1 Key " + str(Key) + " is not a recognized flag")
@@ -1802,7 +1803,7 @@ class YP(object):
         def __iter__(self):
             return self
         
-        def next(self):
+        def __next__(self):
             raise StopIteration
         
         def close(self):
@@ -1816,7 +1817,7 @@ class YP(object):
         def __iter__(self):
             return self
 
-        def next(self):
+        def __next__(self):
             if not self._didIteration:
                 self._didIteration = True
                 return False
@@ -1831,7 +1832,7 @@ class YP(object):
         def __iter__(self):
             return self
         
-        def next(self):
+        def __next__(self):
             return False
         
         def close(self):
@@ -1845,22 +1846,22 @@ class YP(object):
             self._exception = None
             try:
                 self._enumerator = iter(YP.getIterator(Goal, declaringClass))
-            except PrologException, exception:
+            except PrologException as exception:
                 # next() will check this.
                 self._exception = exception
         
         def __iter__(self):
             return self
 
-        # Call _enumerator.next().  If it throws a PrologException, set _exception
+        # Call next(_enumerator).  If it throws a PrologException, set _exception
         # and throw StopIteration.  After this raises StopIteration, call unifyExceptionOrThrow.
-        def next(self):
+        def __next__(self):
             if self._exception != None:
                 raise StopIteration
                 
             try:
-                return self._enumerator.next()
-            except PrologException, exception:
+                return next(self._enumerator)
+            except PrologException as exception:
                 self._exception = exception
                 raise StopIteration
             # Else allow the exception which includes StopIteration.

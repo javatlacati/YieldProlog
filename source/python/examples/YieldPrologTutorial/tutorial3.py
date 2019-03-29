@@ -35,16 +35,16 @@ from Atom import *
 from ListPair import *
 
 def main():
-    print "Return a list of 2 elements:"
+    print("Return a list of 2 elements:")
     List = Variable()
     for l1 in makeList("a", "b", List):
-        print "List =", List.getValue()
+        print("List =", List.getValue())
 
-    print "Unify two lists:"
+    print("Unify two lists:")
     Second = Variable()
     for l1 in makeList("x", Second,
           ListPair("x", ListPair("y", Atom.NIL))):
-        print "The second element is", Second.getValue()
+        print("The second element is", Second.getValue())
 
 def makeList(First, Second, List):
     list1 = ListPair(Second, Atom.NIL)

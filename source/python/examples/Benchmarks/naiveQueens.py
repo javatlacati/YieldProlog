@@ -8,14 +8,14 @@ from ListPair import *
 from time import *
 
 def main():
-    startTime = clock()
+    startTime = perf_counter()
     nAnswers = 0
     Qs = Variable()
     for l1 in queens(11, Qs):
         nAnswers += 1
-    finishTime = clock()
-    print "Naive queens:", (finishTime - startTime), "seconds,", \
-          nAnswers, "answers"
+    finishTime = perf_counter()
+    print("Naive queens:", (finishTime - startTime), "seconds,",
+          nAnswers, "answers")
 
 def queens(N, Qs):
     Ns = Variable()

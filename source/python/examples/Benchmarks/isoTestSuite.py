@@ -14,13 +14,13 @@ from Variable import *
 from time import *
 
 def main():
-    startTime = clock()
+    startTime = perf_counter()
     nAnswers = 0
     for l1 in run_all_tests():
         nAnswers += 1
-    finishTime = clock()
-    print "ISO Test Suite:", (finishTime - startTime), "seconds,", \
-          nAnswers, "answers"
+    finishTime = perf_counter()
+    print("ISO Test Suite:", (finishTime - startTime), "seconds,",
+          nAnswers, "answers")
 
 # Following is the compiled code from YieldProlog/source/prolog/isoTestSuite.P
 

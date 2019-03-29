@@ -205,7 +205,7 @@ class CompilerState(object):
         Module = YP.getValue(Module)
         if isinstance(Name, Atom) and isinstance(Arity, int):
             nameArity = str(Name) + "/" + str(Arity)
-            if not State._moduleForNameArity.has_key(nameArity):
+            if nameArity not in State._moduleForNameArity:
                 return False
             return State._moduleForNameArity[nameArity] == Module
 
@@ -274,11 +274,11 @@ class Compiler(object):
         classCode.writeLine(")")
 
         # This defines the function in the local scope.
-        exec compile(functionCode, 'anonymous', 'single') in globals(), locals()
+        exec(compile(functionCode, 'anonymous', 'single'), globals(), locals())
         # This defines the class Temp in the local scope.
-        exec compile(classCode.toString(), 'anonymous', 'single') in globals(), locals()
+        exec(compile(classCode.toString(), 'anonymous', 'single'), globals(), locals())
         # Return a Temp object whose match calls function.
-        return Temp(function)
+        return locals()['Temp'](locals()['function'])
 
     # If the functor with name and args can be called directly as determined by
     #   functorCallFunctionName, then call it and return its iterator.  If the predicate is
@@ -319,7 +319,7 @@ class Compiler(object):
                 return None
 
             func = None
-            if methodDictionary.has_key(methodName):
+            if methodName in methodDictionary:
                 func = methodDictionary[methodName]
                 if isinstance(func, staticmethod):
                     func = func.__get__(func)
@@ -3436,28 +3436,54 @@ def convertStringCodesCSharp(arg1):
       return
 
 def convertFunctionJavascript(arg1):
-  for l1 in YP.unify(arg1, Atom.a("getDeclaringClass")):
-    YP.write(Atom.a("function getDeclaringClass() { return null; }"))
-    YP.nl()
-    YP.nl()
-    return
-  x1 = Variable()
-  Name = Variable()
-  ArgList = Variable()
-  Body = Variable()
-  for l1 in YP.unify(arg1, Functor("function", [x1, Name, ArgList, Body])):
-    YP.write(Atom.a("function "))
-    YP.write(Name)
-    YP.write(Atom.a("("))
-    convertArgListJavascript(ArgList)
-    YP.write(Atom.a(") {"))
-    YP.nl()
-    convertStatementListJavascript(Body, 1)
-    YP.write(Atom.a("}"))
-    YP.nl()
-    YP.nl()
-    return
-
+  doBreak = False
+  for _ in [1]:
+    for l2 in YP.unify(arg1, Atom.a("getDeclaringClass")):
+      YP.write(Atom.a("function getDeclaringClass() { return null; }"))
+      YP.nl()
+      YP.nl()
+      return
+    if doBreak:
+      break
+  for _ in [1]:
+    x1 = Variable()
+    Name = Variable()
+    ArgList = Variable()
+    Body = Variable()
+    for l2 in YP.unify(arg1, Functor("function", [x1, Name, ArgList, Body])):
+      YP.write(Atom.a("function "))
+      cutIf1 = False
+      for _ in [1]:
+        if YP.termEqual(Name, Atom.a("function")):
+          YP.write(Atom.a("_function_"))
+          YP.write(Atom.a("("))
+          convertArgListJavascript(ArgList)
+          YP.write(Atom.a(") {"))
+          YP.nl()
+          convertStatementListJavascript(Body, 1)
+          YP.write(Atom.a("}"))
+          YP.nl()
+          YP.nl()
+          return
+          cutIf1 = True
+          doBreak = True
+          break
+        YP.write(Name)
+        YP.write(Atom.a("("))
+        convertArgListJavascript(ArgList)
+        YP.write(Atom.a(") {"))
+        YP.nl()
+        convertStatementListJavascript(Body, 1)
+        YP.write(Atom.a("}"))
+        YP.nl()
+        YP.nl()
+        return
+      if cutIf1:
+        doBreak = False
+      if doBreak:
+        break
+    if doBreak:
+      break
 def convertStatementListJavascript(arg1, arg2):
   x1 = arg2
   for l1 in YP.unify(arg1, Atom.NIL):

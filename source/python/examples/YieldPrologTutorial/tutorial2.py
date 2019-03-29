@@ -34,44 +34,44 @@ from Variable import *
 
 def main():
     Brother = Variable()
-    print "Find relations:" 
+    print("Find relations:")
     for l1 in brother("Hillary", Brother):
-        print "Hillary has brother", \
-              Brother.getValue(), "."
+        print("Hillary has brother",
+              Brother.getValue(), ".")
 
-    print "Check if it is square:"
+    print("Check if it is square:")
     for l1 in squaredRectangle(10, 10):
-        print "10 by 10 rectangle is square."
+        print("10 by 10 rectangle is square.")
 
-    print "Make it square:"
+    print("Make it square:")
     Width = Variable()
     Height = Variable()
     for l1 in Width.unify(10):
         for l2 in squaredRectangle(Width, Height):
-            print "A square of width", \
-                Width.getValue(), "has height", \
-                Height.getValue(), "."
+            print("A square of width",
+                Width.getValue(), "has height",
+                Height.getValue(), ".")
 
-    print "Make it square before we know the width:"
+    print("Make it square before we know the width:")
     for l1 in squaredRectangle(Width, Height):
         for l2 in Width.unify(10):
-            print "A square of width", \
-                Width.getValue(), "has height", \
-                Height.getValue(), "." 
+            print("A square of width",
+                Width.getValue(), "has height",
+                Height.getValue(), ".")
 
-    print "Get one match:"
+    print("Get one match:")
     for l1 in anyBrother("Hillary", Brother):
-        print "Hillary has a brother", \
-              Brother.getValue(), "."
+        print("Hillary has a brother",
+              Brother.getValue(), ".")
     for l1 in anyBrother("Bill", Brother):
-        print "Bill has a brother", \
-              Brother.getValue(), "."
+        print("Bill has a brother",
+              Brother.getValue(), ".")
 
-    print "Use cut for negation:"
+    print("Use cut for negation:")
     for l1 in noBrother("Hillary"):
-        print "Hillary has no brother."
+        print("Hillary has no brother.")
     for l1 in noBrother("Chelsea"):
-        print "Chelsea has no brother."
+        print("Chelsea has no brother.")
 
 def brother(Person, Brother):
     for l1 in YP.unify(Person, "Hillary"):

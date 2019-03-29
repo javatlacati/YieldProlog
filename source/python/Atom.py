@@ -26,7 +26,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import StringIO
+from io import StringIO
 from YP import *
 from Variable import *
 
@@ -114,7 +114,7 @@ class Atom(IUnifiable):
         elif self == Atom.NIL:
             return "[]"
 
-        result = StringIO.StringIO()
+        result = StringIO()
         useQuotes = False
         for c in self._name:
             cInt = ord(c)
