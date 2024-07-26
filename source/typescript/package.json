@@ -2,10 +2,13 @@
   "name": "tyieldprolog",
   "version": "1.0.0",
   "description": "A Prolog implementation based on generators",
-  "main": "dist/YP.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
   "types": "dist/YP.d.ts",
+  "type": "module",
   "files": [
-    "/dist"
+    "/dist",
+    "lib/"
   ],
   "directories": {
     "example": "examples"
@@ -15,7 +18,10 @@
     "watch:build": "tsc --watch",
     "build": "tsc  --build",
     "clean": "tsc --build --clean",
+    "build_webpack": "webpack",
     "webpack_build": "webpack-cli app.tsx --config webpack-config.js",
+    "tsc_export": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublishOnly": "npm run tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -26,6 +32,11 @@
   "author": "Ruslan López",
   "license": "0BSD",
   "devDependencies": {
-    "typescript": "^5.5.4"
+    "chai": "^4.5.0",
+    "mocha": "^10.7.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
   }
 }

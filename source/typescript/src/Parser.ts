@@ -224,7 +224,7 @@ function *read_tokens(arg1: Variable, arg2, arg3: Variable) {
 
 function getDeclaringClass() { return null; }
 
-function *parseInput(TermList) {
+export function *parseInput(TermList) {
   {
     let TermAndVariables = new Variable();
     let findallAnswers1 = new FindallAnswers(TermAndVariables);
