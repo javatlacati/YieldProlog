@@ -5,7 +5,7 @@ import {YP} from "./YP";
 /**CodeListReader has a method to read the next code from
  the CodeList which is a Prolog list of integer character codes.*/
 export class CodeListReader {
-  private _CodeList: Functor2 | Atom;
+  private _CodeList: any;
 
   constructor(CodeList) {
     this._CodeList = YP.getValue(CodeList);

@@ -68,8 +68,7 @@
     ],
     "reporter": [
       "text",
-      "html",
-      "lcov"
+      "html"
     ],
     "node-option": [
       "no-warnings",

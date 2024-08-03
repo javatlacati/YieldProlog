@@ -90,7 +90,7 @@ export class YP {
 // This does not call YP.getValue(obj).
 // Debug: need a better way to check for this.  (Use it as a base class?)
     static isIUnifiable(obj): boolean {
-        return typeof(obj) == 'object' && obj.unify !== undefined;
+        return obj !==null && typeof(obj) == 'object' && obj.unify !== undefined;
     }
 
      // Convert term to a number.
@@ -1118,7 +1118,7 @@ This does not call YP.getValue(term).*/
         return Term instanceof Functor1 || Term instanceof Functor2 || Term instanceof Functor3 ||
           Term instanceof Functor;
     }
-    static _inputStream = null;
+    static _inputStream: CodeListReader|null = null;
 
 // If input is a Prolog list, read the character codes from it.
 // Otherwise input must be a object with a read and close function.
@@ -1152,7 +1152,7 @@ This does not call YP.getValue(term).*/
         }
     }
 
-    static current_input(Stream: Variable) {
+    static current_input(Stream: any) {
         return YP.unify(Stream, YP._inputStream);
     }
 

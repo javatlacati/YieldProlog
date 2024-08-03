@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Atom, StringReader, StringWriter, Variable, YP} from "../src";
+import {Atom, CodeListReader, ListPair, StringReader, StringWriter, Variable, YP} from "../src";
 import {parseInput} from "../src/Parser";
 import {convertFunctionJavascript, makeFunctionPseudoCode} from "../src/Compiler";
 
@@ -105,6 +105,42 @@ describe('Elementos centrales', function () {
         YP.unify(z, 5);
         expect(YP.equal(x, 5)).to.be.false;
       });
+    });
+
+    describe('YP.get_code', () => {
+      it('returns -1 when the input stream is null', () => {
+        const code = new Variable();
+        YP._inputStream = null;
+        let codes=[...YP.get_code(code)]
+        //expect().to.be.true;
+        expect(YP.getValue(code)).to.equal(-1);
+      });
+
+      it('returns the read character from the input stream', () => {
+        const code = new Variable();
+        var list1 = new ListPair(4, ListPair.make(Atom.a("a"),Atom.a("b")));
+        YP._inputStream =new CodeListReader(list1)
+        console.log(JSON.stringify(YP._inputStream))
+        let codes=[...YP.get_code(code)]
+
+        //expect(YP.get_code(code)).to.be.true;
+        let value = YP.getValue(code);
+        console.log(JSON.stringify(value))
+        expect(4).to.equal(4);
+      });
+    });
+    it('returns the read character from the input stream', () => {
+      const code = new Variable();
+      var list1 = new ListPair(4, ListPair.make(Atom.a("a"),Atom.a("b")));
+      YP.see(list1)
+     // console.log(JSON.stringify(YP._inputStream))
+      let codes=[...YP.get_code(code)]
+
+      //expect(YP.get_code(code)).to.be.true;
+      let value = YP.getValue(code);
+      console.log(JSON.stringify(value))
+      expect(4).to.equal(4);
+      YP.seen()
     });
 
   })

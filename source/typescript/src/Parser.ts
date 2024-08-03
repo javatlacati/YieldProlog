@@ -228,7 +228,7 @@ export function *parseInput(TermList) {
   {
     let TermAndVariables = new Variable();
     let findallAnswers1 = new FindallAnswers(TermAndVariables);
-    for (let l2 in parseInputHelper(TermAndVariables)) {
+    for (let l2 of parseInputHelper(TermAndVariables)) {
       findallAnswers1.add();
     }
     for (let l2 in findallAnswers1.result(TermList)) {
