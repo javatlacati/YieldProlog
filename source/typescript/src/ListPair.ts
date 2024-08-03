@@ -38,7 +38,7 @@ export class ListPair extends Functor2 {
   constructor(head: any, tail: any) {
     super( Atom.DOT, head, tail)
   }
-  static make = function(arg1: Array<Atom>|any, arg2?, arg3?) {
+  static make(arg1: Array<Atom>|any, arg2?, arg3?) {
     if (arg3 !== undefined)
       return new ListPair(arg1, new ListPair(arg2, new ListPair(arg3, Atom.NIL)));
     if (arg2 !== undefined)
@@ -48,7 +48,7 @@ export class ListPair extends Functor2 {
       if (arg1.length <= 0)
         return Atom.NIL;
 
-      let result:Atom|ListPair = Atom.NIL;
+      let result:any = Atom.NIL;
       // Start from the end.
       for (var i = arg1.length - 1; i >= 0; --i)
         result = new ListPair(arg1[i], result);
@@ -60,7 +60,7 @@ export class ListPair extends Functor2 {
 
 
 // Return a ListPair version of array, where repeated elements (according to YP.termEqual) are removed.
-  static makeWithoutRepeatedTerms = function(array: Atom[]): Atom|ListPair {
+  static makeWithoutRepeatedTerms(array: Atom[]): Atom|ListPair {
     if (array.length <= 0)
       return Atom.NIL;
 
@@ -81,7 +81,7 @@ export class ListPair extends Functor2 {
 // a proper list.  If list is Atom.NIL, return an array of zero elements.
 // If the list or one of the tails of the list is Variable, raise an instantiation_error.
 // This does not call YP.getValue on each element.
-  static toArray = function(list): any[] {
+  static toArray(list): any[] {
     list = YP.getValue(list);
     if (list == Atom.NIL)
       return [];

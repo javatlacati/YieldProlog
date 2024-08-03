@@ -41,10 +41,11 @@ import {CopyStore} from "./CopyStore";
 import {TypeErrorInfo} from "./TypeErrorInfo";
 import {ExistenceErrorInfo} from "./ExistenceErrorInfo";
 
-export class PrologException {
+export class PrologException extends Error {
   private _message: string;
   private _term: Atom|Functor2;
   constructor(arg1?:any, arg2?:any) {
+    super()
     if (arg2 !== undefined) {
       arg2 = YP.getValue(arg2);
       this._message = arg2.toString();

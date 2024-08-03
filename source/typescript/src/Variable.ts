@@ -69,21 +69,23 @@ export class Variable implements Unifiable {
   *unify(arg: Variable | any) {
     if (!this._isBound) {
       this._value = YP.getValue(arg);
-      if (this._value == this)
+      if (this._value == this){
         // We are unifying this unbound variable with itself, so leave it unbound.
         yield false;
+      }
       else {
         this._isBound = true;
-        try {
+        // try {
           yield false;
-        } finally {
+        // }
+        // finally { //comenté esto apra dejar enlazada la variable a un valor
           // Remove the binding.
-          this._isBound = false;
-        }
+          // this._isBound = false;
+        // }
       }
     }
     else {
-      for (var l1 in YP.unify(this, arg))
+      for (var l1 of YP.unify(this, arg))
       yield false;
     }
   }

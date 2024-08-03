@@ -263,7 +263,7 @@ export function sameVariable(Variable1, Variable2: any) {
   return false;
 }
 
-function *makeFunctionPseudoCode(RuleList, FunctionCode) {
+export function *makeFunctionPseudoCode(RuleList, FunctionCode) {
   {
     let State = new Variable();
     for (let l2 of CompilerState.make(State)) {
@@ -3821,7 +3821,7 @@ function convertStringCodesCSharp(arg1) {
   }
 }
 
-function convertFunctionJavascript(arg1) {
+export function convertFunctionJavascript(arg1) {
   {
     for (let l2 of YP.unify(arg1, Atom.a("getDeclaringClass"))) {
       YP.write(Atom.a("function getDeclaringClass() { return null; }"));

@@ -4,6 +4,7 @@
     "noImplicitReturns": true,
     "target": "es2015",
     "moduleResolution": "node",
+    "typeRoots": ["node_modules/@types"],
     "declaration": true,
     "outDir": "./lib/esm",
     "lib": [
@@ -15,12 +16,18 @@
     ],
     "rootDir": "src",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext"
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "ts-node": {
+    "esm": true, // «———— enabling ESM for ts-node
+    "experimentalResolver": true,
+    "experimentalSpecifierResolution": "node",
+  }
 }

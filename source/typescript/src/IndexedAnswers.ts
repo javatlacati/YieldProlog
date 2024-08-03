@@ -142,7 +142,7 @@ export class IndexedAnswers implements Clause{
         var keyValueArray = this._indexedAnswers[indexArgs];
         if (keyValueArray === undefined)
             return undefined;
-        for (var keyValue in keyValueArray) {
+        for (var keyValue of keyValueArray) {
             // @ts-ignore
             if (IndexedAnswers.arrayEquals(keyValue._key, indexArgs))
                 { // @ts-ignore
@@ -238,15 +238,15 @@ export class IndexedAnswers implements Clause{
                 }
             }
 
-            try {
+            // try {
                 if (gotMatch)
                     yield false;
-            }
-            finally {
+            // }
+            // finally {
                 // Manually finalize all the iterators.
-                for (var i = 0; i < nIterators; ++i)
-                    iterators[i].close();
-            }
+            //     for (var i = 0; i < nIterators; ++i)
+            //         iterators[i].close();
+            // }
         }
     }
 

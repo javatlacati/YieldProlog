@@ -1375,7 +1375,7 @@ This does not call YP.getValue(term).*/
 
 // Call match(arguments) for each IClause in clauses.  We make this a separate
 // function so that matchDynamic itself does not need to be an iterator object.
-    static *matchAllClauses(clauses, argumentos) {
+    static *matchAllClauses(clauses: Clause[], argumentos) {
         for (let clause of clauses) {
             for (let lastCall of clause.match(argumentos)) {
                 yield false;
