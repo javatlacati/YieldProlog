@@ -5153,7 +5153,7 @@ function *putCStringCode(Code) {
   }
 }
 
-function *member(X, arg2) {
+export function *member(X, arg2) {
   {
     let x2 = new Variable();
     for (let l2 of YP.unify(arg2, new ListPair(X, x2))) {
@@ -5171,7 +5171,7 @@ function *member(X, arg2) {
   }
 }
 
-function *append(arg1, arg2, arg3) {
+export function *append(arg1, arg2, arg3) {
   {
     let List = new Variable();
     for (let l2 of YP.unify(arg1, Atom.NIL)) {

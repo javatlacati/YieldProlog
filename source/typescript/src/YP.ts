@@ -70,13 +70,13 @@ export class YP {
 // Otherwise, both arguments are "normal" (atomic) values so if they
 // are equal then succeed (yield once), else fail (don't yield).
 // For more details, see http://yieldprolog.sourceforge.net/tutorial1.html
-    static unify(arg1:any, arg2: any): Iterable<any> {
+    static unify(arg1:any, arg2: any): IterableIterator<any> {
         arg1 = YP.getValue(arg1);
         arg2 = YP.getValue(arg2);
         if (YP.isIUnifiable(arg1))
-            return (arg1 as Unifiable).unify(arg2);
+            return (arg1 as Unifiable).unify(arg2).next().value;
         else if (YP.isIUnifiable(arg2))
-            return (arg2 as Unifiable).unify(arg1);
+            return (arg2 as Unifiable).unify(arg1).next().value;
         else {
             // Arguments are "normal" types.
             if (arg1 == arg2)

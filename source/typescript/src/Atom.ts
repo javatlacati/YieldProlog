@@ -87,7 +87,7 @@ export class Atom implements Unifiable{
         return YP.fail();
     }
 
-    unify(arg)
+    *unify(arg)
     {
         arg = YP.getValue(arg);
         if (arg instanceof Atom)

@@ -1,5 +1,5 @@
 /**An iterator that does zero loops.*/
-export class Fail implements Iterable<any> {
+export class FailIterable implements Iterable<any> {
   [Symbol.iterator]() {
     let didIteration = true;
     return {
@@ -10,5 +10,18 @@ export class Fail implements Iterable<any> {
         }
       }
     }
+  }
+}
+
+export class Fail implements IterableIterator<boolean> {
+  iterable: FailIterable = new FailIterable()
+  iterator = this.iterable[Symbol.iterator]();
+
+  next(): IteratorResult<boolean> {
+    return this.iterator.next();
+  }
+
+  [Symbol.iterator]() {
+    return this;
   }
 }

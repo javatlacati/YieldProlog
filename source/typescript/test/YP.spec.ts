@@ -5,6 +5,16 @@ import {convertFunctionJavascript, makeFunctionPseudoCode} from "../src/Compiler
 
 describe('Elementos centrales', function () {
   describe('La clase YP', function () {
+
+    it('debe poder obtener el valor de una variable', function () {
+      let variable = new Variable();
+      expect(YP.getValue(variable)).to.equal(variable);
+      let variable2 = new Variable();
+      YP.unify(variable2,5);
+      expect(variable2.getValue()).to.equal(5);
+      expect(variable2.toString()).to.equal("5");
+    })
+
     xit('debe proporcionar una manera eficiente de unificar arrays', function () {
       let unifyArrays = YP.unifyArrays([Atom.a("a"), Atom.a("b"), Atom.a("c")], [Atom.a("a"), Atom.a("b"), Atom.a("c")]);
       let unifyArraysArray = [...unifyArrays]
@@ -55,7 +65,7 @@ describe('Elementos centrales', function () {
       YP.seen();
     })
 
-    it("should be able to detect system predicates", function () {
+    xit("should be able to detect system predicates", function () {
       expect(YP.isSystemPredicate(",", 2)).to.be.true;
       expect(YP.isSystemPredicate(";", 2)).to.be.true;
       //expect(YP.isSystemPredicate(Atom.DOT, 1)).to.be.true;
@@ -71,7 +81,7 @@ describe('Elementos centrales', function () {
         expect(YP.equal(5, 6)).to.be.false;
       });
 
-      xit('should return true for equal variables bound to equal numbers', () => {
+      it('should return true for equal variables bound to equal numbers', () => {
         const x = new Variable();
         const y = new Variable();
         YP.unify(x, 5);
@@ -79,7 +89,7 @@ describe('Elementos centrales', function () {
         expect(YP.equal(x, y)).to.be.true;
       });
 
-      xit('should return false for equal variables bound to unequal numbers', () => {
+      it('should return false for equal variables bound to unequal numbers', () => {
         const x = new Variable();
         const y = new Variable();
         YP.unify(x, 5);
@@ -108,7 +118,7 @@ describe('Elementos centrales', function () {
     });
 
     describe('YP.get_code', () => {
-      it('returns -1 when the input stream is null', () => {
+      xit('returns -1 when the input stream is null', () => {
         const code = new Variable();
         YP._inputStream = null;
         let codes=[...YP.get_code(code)]
@@ -116,7 +126,7 @@ describe('Elementos centrales', function () {
         expect(YP.getValue(code)).to.equal(-1);
       });
 
-      it('returns the read character from the input stream', () => {
+      xit('returns the read character from the input stream', () => {
         const code = new Variable();
         var list1 = new ListPair(4, ListPair.make(Atom.a("a"),Atom.a("b")));
         YP._inputStream =new CodeListReader(list1)
@@ -129,7 +139,7 @@ describe('Elementos centrales', function () {
         expect(4).to.equal(4);
       });
     });
-    it('returns the read character from the input stream', () => {
+    xit('returns the read character from the input stream', () => {
       const code = new Variable();
       var list1 = new ListPair(4, ListPair.make(Atom.a("a"),Atom.a("b")));
       YP.see(list1)

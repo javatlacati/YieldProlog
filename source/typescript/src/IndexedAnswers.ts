@@ -225,7 +225,7 @@ export class IndexedAnswers implements Clause{
                   // We already matched this argument by looking up _indexedAnswers.
                     continue;
 
-                var iterator: Iterator<any> = (YP.unify(argumentos[i], answer[i]))[Symbol.iterator]();
+                var iterator: IterableIterator<any> = YP.unify(argumentos[i], answer[i]);
                 iterators[nIterators++] = iterator;
                 // next() returns if YP.unify succeeds.
                 try {

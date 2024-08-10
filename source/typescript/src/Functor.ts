@@ -89,7 +89,7 @@ export class Functor implements Unifiable{
 // same name and all functor args unify, otherwise fail (don't yield).
 // If arg is a Variable, then call its unify to unify with this.
 // Otherwise fail (don't yield).
-    unify(arg: Functor|Variable) {
+    *unify(arg: Functor|Variable) {
         arg = YP.getValue(arg);
         if (arg instanceof Functor)
         {
