@@ -51,7 +51,7 @@ const FirstTutorialSectionSix: FC<FirstTutorialSectionSixProps> = () => {
 
   useEffect(() => {
     const Brother = new UnifyingVariable();
-    const foundBrothers = []
+    const foundBrothers: string[] = []
     for (let _ of brother("Hillary", Brother))
       foundBrothers.push("Hillary has brother " + Brother.value);
     setBrothersFound(foundBrothers)

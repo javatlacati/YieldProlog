@@ -2,6 +2,7 @@ import './App.css'
 import QueryEditor from "./components/QueryEditor/QueryEditor.lazy.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import FirstTutorial from "./components/FirstTutorial/FirstTutorial.lazy.tsx";
+import SecondTutorial from "./components/SecondTutorial/SecondTutorial.lazy.tsx";
 
 function App() {
 
@@ -13,6 +14,10 @@ function App() {
     {
       path: "/first",
       element: <FirstTutorial/>
+    },
+    {
+      path: "/second",
+      element: <SecondTutorial/>
     }
   ]);
   return (
