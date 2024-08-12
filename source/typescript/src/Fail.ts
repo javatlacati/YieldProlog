@@ -1,24 +1,24 @@
-/**An iterator that does zero loops.*/
-export class FailIterable implements Iterable<any> {
-  [Symbol.iterator]() {
-    let didIteration = true;
-    return {
-      next: () => {
-        return {
-          done: didIteration,
-          value: didIteration
-        }
-      }
-    }
-  }
+export function* failGenerator(): Generator<boolean, void, unknown> {
+    yield false;
 }
 
-export class Fail implements IterableIterator<boolean> {
-  iterable: FailIterable = new FailIterable()
-  iterator = this.iterable[Symbol.iterator]();
+export class Fail implements Generator<boolean, void, unknown> {
+  private generator: Generator<boolean, void, unknown>;
+
+  constructor() {
+    this.generator = failGenerator();
+  }
 
   next(): IteratorResult<boolean> {
-    return this.iterator.next();
+    return this.generator.next();
+  }
+
+  return(value?: any): IteratorResult<boolean> {
+    return this.generator.return(value);
+  }
+
+  throw(error: any) {
+    return this.generator.throw(error);
   }
 
   [Symbol.iterator]() {

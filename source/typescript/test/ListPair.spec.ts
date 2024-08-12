@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Atom, ListPair, PrologException, Variable, YP} from "../src";
+import {Atom, ListPair, PrologException, Variable} from "../src";
 
 describe('Elementos básicos', function () {
   describe('Listas', function () {

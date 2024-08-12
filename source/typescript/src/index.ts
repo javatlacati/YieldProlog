@@ -11,10 +11,8 @@ import {Compiler, functorCallYPFunctionName} from "./Compiler";
 import {CopyStore} from "./CopyStore";
 import {ClauseHeadAndBody} from "./ClauseHeadAndBody";
 import {CodeListReader} from "./CodeListReader";
-import {Unifiable} from "./Unifiable";
 import {Succeed} from "./Succeed";
 import {Fail} from "./Fail";
-import {Clause} from "./Clause";
 import {Repeat} from "./Repeat";
 import {YP} from "./YP"
 import {StringWriter} from "./StringWriter";
@@ -34,5 +32,5 @@ export {
   functorCallYPFunctionName,
   CopyStore,
   ClauseHeadAndBody,
-  CodeListReader, Unifiable, Succeed, Fail, Clause, Repeat, YP, StringWriter, StringReader
+  CodeListReader, Succeed, Fail, Repeat, YP, StringWriter, StringReader
 }

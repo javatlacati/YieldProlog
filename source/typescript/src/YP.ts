@@ -70,16 +70,16 @@ export class YP {
 // Otherwise, both arguments are "normal" (atomic) values so if they
 // are equal then succeed (yield once), else fail (don't yield).
 // For more details, see http://yieldprolog.sourceforge.net/tutorial1.html
-    static unify(arg1:any, arg2: any): IterableIterator<any> {
+    static unify(arg1:any, arg2: any):Generator<any> {
         arg1 = YP.getValue(arg1);
         arg2 = YP.getValue(arg2);
         if (YP.isIUnifiable(arg1))
-            return (arg1 as Unifiable).unify(arg2).next().value;
+            return (arg1 as Unifiable).unify(arg2);
         else if (YP.isIUnifiable(arg2))
-            return (arg2 as Unifiable).unify(arg1).next().value;
+            return (arg2 as Unifiable).unify(arg1);
         else {
             // Arguments are "normal" types.
-            if (arg1 == arg2)
+            if (arg1 === arg2)
                 return new Succeed();
             else
                 return YP._fail;
@@ -90,7 +90,7 @@ export class YP {
 // This does not call YP.getValue(obj).
 // Debug: need a better way to check for this.  (Use it as a base class?)
     static isIUnifiable(obj): boolean {
-        return obj !==null && typeof(obj) == 'object' && obj.unify !== undefined;
+        return obj !==null && typeof(obj) === 'object' && obj.unify !== undefined;
     }
 
      // Convert term to a number.

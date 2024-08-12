@@ -1,28 +1,21 @@
 // An iterator that does one loop.
-export class SucceedIterable implements Iterable<boolean> {
-  [Symbol.iterator]() {
-    let didIteration = false;
-    return {
-      next: () => {
-
-        return {
-          done: didIteration,
-          value: !didIteration
-        }
-      }
-    }
-  }
-}
-
-export class Succeed implements IterableIterator<boolean> {
-  iterable: SucceedIterable = new SucceedIterable()
-  readonly iterator = this.iterable[Symbol.iterator]();
-
+export class Succeed implements Generator<boolean> {
+  private didIteration = false;
   next(): IteratorResult<boolean> {
-    return this.iterator.next();
+    const done = this.didIteration;
+    const value = !done;
+    this.didIteration = true;
+    return { done, value };
+  }
+  [Symbol.iterator](): Generator<boolean> {
+    return this;
   }
 
-  [Symbol.iterator]() {
-    return this;
+  throw(error: any): never {
+    throw error;
+  }
+
+  return(value?: any): IteratorResult<boolean> {
+    return { done: true, value: undefined };
   }
 }

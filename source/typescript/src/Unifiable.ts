@@ -6,7 +6,7 @@ export interface Unifiable {
 
   ground(): boolean;
 
-  unify(arg: any): IterableIterator<any>
+  unify(arg: any): Generator<any>
 
   addUniqueVariables(variableSet: Array<Variable>): void;
 
